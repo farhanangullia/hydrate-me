@@ -4,7 +4,7 @@ A cross-platform hydration reminder app built with React Native and Expo that he
 
 ## 🌐 Live Demo
 
-**Try the app online:** [https://hydrate-me.expo.app/](https:/ /hydrate-me.expo.app/)
+**Try the app online:** [https://hydrate-me.expo.app/](https://hydrate-me.expo.app/)
 
 ## Features
 
