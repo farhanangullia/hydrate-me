@@ -1,7 +1,7 @@
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Image } from 'expo-image';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import { ThemedText } from './ThemedText';
 
@@ -16,6 +16,10 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
   const dropAnim = useRef(new Animated.Value(-100)).current;
+
+  const handleAnimationComplete = useCallback(() => {
+    onFinish();
+  }, [onFinish]);
 
   useEffect(() => {
     const animations = [
@@ -44,10 +48,8 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
       }),
     ];
 
-    Animated.sequence(animations).start(() => {
-      onFinish();
-    });
-  }, [fadeAnim, scaleAnim, dropAnim, onFinish]);
+    Animated.sequence(animations).start(handleAnimationComplete);
+  }, [fadeAnim, scaleAnim, dropAnim, handleAnimationComplete]);
 
   return (
     <View style={[

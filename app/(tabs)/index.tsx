@@ -113,7 +113,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.progressContainer}>
-          <View style={styles.progressBar}>
+          <View style={[styles.progressBar, { backgroundColor: Colors[colorScheme ?? 'light'].progressBackground }]}>
             <View 
               style={[
                 styles.progressFill, 
@@ -141,7 +141,7 @@ export default function HomeScreen() {
                 style={[styles.addButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
                 onPress={() => addWaterIntake(amount)}
               >
-                <ThemedText style={styles.buttonText}>
+                <ThemedText style={[styles.buttonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>
                   {amount >= 1000 ? `${amount / 1000}L` : `${amount}ml`}
                 </ThemedText>
               </TouchableOpacity>
@@ -151,21 +151,21 @@ export default function HomeScreen() {
 
         <View style={styles.infoContainer}>
           <ThemedText type="subtitle" style={styles.sectionTitle}>Today&apos;s Stats</ThemedText>
-          <View style={styles.statRow}>
+          <View style={[styles.statRow, { borderBottomColor: Colors[colorScheme ?? 'light'].border }]}>
             <ThemedText>Last drink:</ThemedText>
             <ThemedText style={styles.statValue}>
               {formatTime(hydrationData.lastDrink)}
             </ThemedText>
           </View>
           {nextReminder && (
-            <View style={styles.statRow}>
+            <View style={[styles.statRow, { borderBottomColor: Colors[colorScheme ?? 'light'].border }]}>
               <ThemedText>Next reminder:</ThemedText>
               <ThemedText style={styles.statValue}>
                 {formatTime(nextReminder)}
               </ThemedText>
             </View>
           )}
-          <View style={styles.statRow}>
+          <View style={[styles.statRow, { borderBottomColor: Colors[colorScheme ?? 'light'].border }]}>
             <ThemedText>Reminder interval:</ThemedText>
             <ThemedText style={styles.statValue}>
               {hydrationData.reminderInterval} minutes
@@ -254,7 +254,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
   },

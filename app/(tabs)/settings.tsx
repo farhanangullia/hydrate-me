@@ -98,25 +98,25 @@ export default function SettingsScreen() {
               style={[styles.goalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateDailyGoal(1500)}
             >
-              <ThemedText style={styles.goalButtonText}>1.5L</ThemedText>
+              <ThemedText style={[styles.goalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>1.5L</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.goalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateDailyGoal(2000)}
             >
-              <ThemedText style={styles.goalButtonText}>2L</ThemedText>
+              <ThemedText style={[styles.goalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>2L</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.goalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateDailyGoal(2500)}
             >
-              <ThemedText style={styles.goalButtonText}>2.5L</ThemedText>
+              <ThemedText style={[styles.goalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>2.5L</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.goalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateDailyGoal(3000)}
             >
-              <ThemedText style={styles.goalButtonText}>3L</ThemedText>
+              <ThemedText style={[styles.goalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>3L</ThemedText>
             </TouchableOpacity>
           </View>
           <ThemedText style={styles.currentGoal}>Current goal: {settings.dailyGoal}ml</ThemedText>
@@ -129,25 +129,25 @@ export default function SettingsScreen() {
               style={[styles.intervalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateReminderInterval(30)}
             >
-              <ThemedText style={styles.intervalButtonText}>30 min</ThemedText>
+              <ThemedText style={[styles.intervalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>30 min</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.intervalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateReminderInterval(60)}
             >
-              <ThemedText style={styles.intervalButtonText}>1 hour</ThemedText>
+              <ThemedText style={[styles.intervalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>1 hour</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.intervalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateReminderInterval(90)}
             >
-              <ThemedText style={styles.intervalButtonText}>1.5 hours</ThemedText>
+              <ThemedText style={[styles.intervalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>1.5 hours</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.intervalButton, { backgroundColor: Colors[colorScheme ?? 'light'].tint }]}
               onPress={() => updateReminderInterval(120)}
             >
-              <ThemedText style={styles.intervalButtonText}>2 hours</ThemedText>
+              <ThemedText style={[styles.intervalButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>2 hours</ThemedText>
             </TouchableOpacity>
           </View>
           <ThemedText style={styles.currentInterval}>Current interval: {settings.reminderInterval} minutes</ThemedText>
@@ -182,7 +182,7 @@ export default function SettingsScreen() {
                   updateCustomAmount(index, newAmount);
                 }}
               >
-                <ThemedText style={styles.amountButtonText}>{amount}ml</ThemedText>
+                <ThemedText style={[styles.amountButtonText, { color: Colors[colorScheme ?? 'light'].buttonText }]}>{amount}ml</ThemedText>
               </TouchableOpacity>
               {settings.customAmounts.length > 1 && (
                 <TouchableOpacity 
@@ -264,7 +264,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   goalButtonText: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 14,
   },
@@ -286,7 +285,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   intervalButtonText: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 12,
   },
@@ -319,7 +317,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   amountButtonText: {
-    color: 'white',
     fontWeight: 'bold',
     fontSize: 14,
   },

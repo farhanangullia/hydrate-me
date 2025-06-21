@@ -42,15 +42,33 @@ export const useHydration = () => {
     loadData();
   }, []);
 
+  // Sync hydration data when settings change
+  useEffect(() => {
+    if (!isLoading) {
+      console.log('Settings changed, syncing hydration data. Settings:', settings);
+
+      const updatedHydrationData = {
+        ...hydrationData,
+        dailyGoal: settings.dailyGoal,
+        reminderInterval: settings.reminderInterval,
+        isReminderEnabled: settings.isReminderEnabled,
+      };
+      setHydrationData(updatedHydrationData);
+      AsyncStorage.setItem('hydrationData', JSON.stringify(updatedHydrationData));
+    }
+  }, [settings.dailyGoal, settings.reminderInterval, settings.isReminderEnabled, isLoading]);
+
   const loadData = async () => {
     try {
       setIsLoading(true);
       
       // Load settings first
       const storedSettings = await AsyncStorage.getItem('hydrationSettings');
+      let currentSettings = DEFAULT_SETTINGS;
       if (storedSettings) {
-        const parsedSettings = JSON.parse(storedSettings);
-        setSettings(parsedSettings);
+        console.log('Loaded settings from storage:', currentSettings);
+        currentSettings = JSON.parse(storedSettings);
+        setSettings(currentSettings);
       }
 
       // Load hydration data
@@ -59,16 +77,26 @@ export const useHydration = () => {
         const parsedHydration = JSON.parse(storedHydration);
         parsedHydration.lastDrink = new Date(parsedHydration.lastDrink);
         
-        // Sync with settings
+        // Sync with current settings (not the state which might not be updated yet)
         const syncedHydration = {
           ...parsedHydration,
-          dailyGoal: settings.dailyGoal || parsedHydration.dailyGoal,
-          reminderInterval: settings.reminderInterval || parsedHydration.reminderInterval,
-          isReminderEnabled: settings.isReminderEnabled !== undefined ? settings.isReminderEnabled : parsedHydration.isReminderEnabled,
+          dailyGoal: currentSettings.dailyGoal,
+          reminderInterval: currentSettings.reminderInterval,
+          isReminderEnabled: currentSettings.isReminderEnabled,
         };
         
         setHydrationData(syncedHydration);
         await AsyncStorage.setItem('hydrationData', JSON.stringify(syncedHydration));
+      } else {
+        // If no hydration data exists, create it with current settings
+        const initialHydrationData = {
+          ...DEFAULT_HYDRATION_DATA,
+          dailyGoal: currentSettings.dailyGoal,
+          reminderInterval: currentSettings.reminderInterval,
+          isReminderEnabled: currentSettings.isReminderEnabled,
+        };
+        setHydrationData(initialHydrationData);
+        await AsyncStorage.setItem('hydrationData', JSON.stringify(initialHydrationData));
       }
     } catch (error) {
       console.error('Error loading hydration data:', error);
